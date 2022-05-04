@@ -1,2 +1,23 @@
 {
-}
+    // Set the default
+    "editor.formatOnSave": false,
+    "[typescript]": {
+      "editor.formatOnSave": true
+    },
+    "[typescriptreact]": {
+      "editor.formatOnSave": true
+    },
+    "[javascript]": {
+      "editor.formatOnSave": true
+    },
+    "[javascriptreact]": {
+      "editor.formatOnSave": true
+    },
+    "[json]": {
+      "editor.formatOnSave": true
+    },
+    "movets.openEditors": true,
+    "jestrunner.jestCommand": "cd spa && npm run test --",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  }
+  
