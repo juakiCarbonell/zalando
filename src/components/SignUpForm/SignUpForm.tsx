@@ -7,7 +7,6 @@ import { FirebaseError } from '@firebase/util'
 import { FormInput } from 'components/FormInput'
 import { Button } from 'components/Button'
 import './SignUpForm.scss'
-
 interface Values {
   displayName: string
   email: string
@@ -72,11 +71,13 @@ export const SignUpForm = () => {
               <FormInput
                 label="Password"
                 name="password"
+                type="password"
                 value={values.password}
               />
               <FormInput
                 label="Confirm Password"
                 name="confirmPassword"
+                type="password"
                 value={values.confirmPassword}
               />
               <Button type="submit">Sign Up</Button>

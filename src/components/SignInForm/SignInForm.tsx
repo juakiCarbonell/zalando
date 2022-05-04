@@ -1,6 +1,5 @@
 import { Formik, Form, FormikHelpers } from 'formik'
 import {
-  createUseDocumentFormAuth,
   signInWithGooglePopup,
   signInAuthUserwithEmailAndPassword,
 } from '../../utils/firebase/firebase'
@@ -20,7 +19,6 @@ export const SignInForm = () => {
     actions: FormikHelpers<Values>,
   ) => {
     const { email, password } = values
-    console.log('dsfdsf')
 
     try {
       const response = await signInAuthUserwithEmailAndPassword(email, password)
@@ -45,8 +43,8 @@ export const SignInForm = () => {
   }
 
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup()
-    await createUseDocumentFormAuth(user)
+    await signInWithGooglePopup()
+    
   }
 
   return (
@@ -69,6 +67,7 @@ export const SignInForm = () => {
               <FormInput
                 label="Password"
                 name="password"
+                type="password"
                 value={values.password}
               />
               <div className="buttons-container">
