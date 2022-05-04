@@ -1,60 +1,62 @@
 import { Formik, Form, FormikHelpers } from 'formik'
 import {
-  createAuthUserwithEmailAndPassword,
   createUseDocumentFormAuth,
+  signInWithGooglePopup,
+  signInAuthUserwithEmailAndPassword,
 } from '../../utils/firebase/firebase'
 import { FirebaseError } from '@firebase/util'
 import { FormInput } from 'components/FormInput'
 import { Button } from 'components/Button'
-import './SignUpForm.scss'
+import './SignInForm.scss'
 
 interface Values {
-  displayName: string
   email: string
   password: string
-  confirmPassword: string
 }
 
-export const SignUpForm = () => {
+export const SignInForm = () => {
   const hanldeSubmit = async (
     values: Values,
     actions: FormikHelpers<Values>,
   ) => {
-    const { displayName, email, password, confirmPassword } = values
-
-    if (password !== confirmPassword) {
-      alert('Password not match')
-      return
-    }
+    const { email, password } = values
+    console.log('dsfdsf')
 
     try {
-      const response = await createAuthUserwithEmailAndPassword(email, password)
+      const response = await signInAuthUserwithEmailAndPassword(email, password)
       if (response) {
-        await createUseDocumentFormAuth(response.user, { displayName })
         actions.resetForm()
       }
     } catch (error) {
       if (
         error instanceof FirebaseError &&
-        error.code === 'auth/email-already-in-use'
+        error.code === 'auth/wrong-password'
       ) {
-        alert('Cannot create user, email already in use')
+        alert('Incorrect password')
+      } else if (
+        error instanceof FirebaseError &&
+        error.code === 'auth/user-not-found'
+      ) {
+        alert('Not email found')
       } else {
         console.log('error', error)
       }
     }
   }
 
+  const signInWithGoogle = async () => {
+    const { user } = await signInWithGooglePopup()
+    await createUseDocumentFormAuth(user)
+  }
+
   return (
     <div className="sign-up-container">
-      <h2>Don&apos;t have an account</h2>
-      <span>Sign up with your email and password</span>
+      <h2>Already have an account</h2>
+      <span>Sign in with your email and password</span>
       <Formik<Values>
         initialValues={{
-          displayName: '',
           email: '',
           password: '',
-          confirmPassword: '',
         }}
         onSubmit={(values: Values, actions: FormikHelpers<Values>) =>
           hanldeSubmit(values, actions)
@@ -63,23 +65,23 @@ export const SignUpForm = () => {
         {({ values }) => {
           return (
             <Form>
-              <FormInput
-                label="Display Name"
-                name="displayName"
-                value={values.displayName}
-              />
               <FormInput label="Email" name="email" value={values.email} />
               <FormInput
                 label="Password"
                 name="password"
                 value={values.password}
               />
-              <FormInput
-                label="Confirm Password"
-                name="confirmPassword"
-                value={values.confirmPassword}
-              />
-              <Button type="submit">Sign Up</Button>
+              <div className="buttons-container">
+                <Button type="submit">Sign In</Button>
+                <Button
+                  type="button"
+                  buttonType="google"
+                  // onClickHandler={() => signInWithGoogle()}
+                  onClickHandler={signInWithGoogle}
+                >
+                  Google Sign In
+                </Button>
+              </div>
             </Form>
           )
         }}

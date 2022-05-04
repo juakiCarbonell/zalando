@@ -9,6 +9,7 @@ type ButtonType = keyof ButtonTypes
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
   buttonType?: ButtonType
+  onClickHandler?: () => void
 }
 
 const BUTTON_TYPE_CLASSES: ButtonTypes = {
@@ -16,14 +17,16 @@ const BUTTON_TYPE_CLASSES: ButtonTypes = {
   inverted: 'inverted',
 }
 
-export const Button: React.FC<Props> = ({
+export const Button = ({
   children,
   buttonType,
   type,
+  onClickHandler,
 }: Props) => {
   return (
     <button
       type={type}
+      onClick={onClickHandler}
       className={`button-container ${
         buttonType ? BUTTON_TYPE_CLASSES[buttonType] : ''
       }`}
