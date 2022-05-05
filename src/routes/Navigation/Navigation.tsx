@@ -2,13 +2,16 @@ import { Outlet, Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { ReactComponent as Zalando } from 'assets/crown.svg'
 import { UserContext } from 'contexts/userContext'
+import { CartContext } from 'contexts/cartContext'
 import { signOutUser } from '../../utils/firebase/firebase'
+import { CartIcon } from 'components/CartIcon'
 
 import './Navigation.scss'
+import { CartDropdown } from 'components/CartDropdown'
 
 export const Navigation = () => {
   const { currentUser } = useContext(UserContext)
-  console.log('currentuser', currentUser)
+  const { isCartOpen } = useContext(CartContext)
   return (
     <>
       <div className="navigation">
@@ -28,7 +31,9 @@ export const Navigation = () => {
               SIGN IN
             </Link>
           )}
+          <CartIcon />
         </div>
+        {isCartOpen && <CartDropdown />}
       </div>
       <Outlet />
     </>

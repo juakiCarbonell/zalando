@@ -3,16 +3,10 @@ import {
   onAuthStateChangedListener,
   createUseDocumentFormAuth,
 } from '../utils/firebase/firebase'
+import { Props, UserContextValues } from './contextModels'
 import { UserCredential } from 'firebase/auth'
 
-interface Props {
-  children: React.ReactNode
-}
 
-interface UserContextValues {
-  currentUser: UserCredential | null
-  setCurrentUser: React.Dispatch<React.SetStateAction<UserCredential | null>>
-}
 
 // As the actual value you want to access
 export const UserContext = createContext<UserContextValues>({
@@ -26,7 +20,6 @@ export const UserProvider = (props: Props) => {
 
   useEffect(() => {
     const unsubcribe = onAuthStateChangedListener((user: UserCredential) => {
-      console.log('user', user)
       if (user) {
         createUseDocumentFormAuth(user)
       }
