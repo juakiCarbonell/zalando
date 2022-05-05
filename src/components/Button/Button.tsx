@@ -1,10 +1,12 @@
-import './Button.scss'
+import { BaseButton, GoogleSignInButton, InvertedButton } from './Button.styles'
 
-type ButtonTypes = {
-  google: string
-  inverted: string
+export enum ButtonTypes {
+  base = 'base',
+  google = 'google',
+  inverted = 'inverted',
 }
-type ButtonType = keyof ButtonTypes
+
+type ButtonType =  'base' | 'google' | 'inverted'
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
@@ -12,26 +14,26 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClickHandler?: () => void
 }
 
-const BUTTON_TYPE_CLASSES: ButtonTypes = {
-  google: 'google-sign-in',
-  inverted: 'inverted',
-}
+const getButton = (buttonType: string) =>
+  ({
+    [ButtonTypes.base]: BaseButton,
+    [ButtonTypes.google]: GoogleSignInButton,
+    [ButtonTypes.inverted]: InvertedButton,
+  }[buttonType])
 
 export const Button = ({
   children,
-  buttonType,
+  buttonType = ButtonTypes.base,
   type,
   onClickHandler,
 }: Props) => {
+  const CustomButton = getButton(buttonType)
+  if (!CustomButton) {
+    return null
+  }
   return (
-    <button
-      type={type}
-      onClick={onClickHandler}
-      className={`button-container ${
-        buttonType ? BUTTON_TYPE_CLASSES[buttonType] : ''
-      }`}
-    >
+    <CustomButton type={type} onClick={onClickHandler}>
       {children}
-    </button>
+    </CustomButton>
   )
 }

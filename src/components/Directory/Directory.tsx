@@ -1,19 +1,17 @@
-import { CategoryItem } from '../CategoryItem/CategoryItem';
-import { Category } from 'models/Models';
-import './Directory.scss';
-
+import { DirectoryItem } from '../DirectoryItem/DirectoryItem'
+import { Category } from 'models/Models'
+import { DirectoryContianer } from './Directory.styles'
 
 interface Props {
-    categories: Category[]
+  categories: Category[]
 }
 
 export const Directory = ({ categories }: Props) => {
   return (
-    <div className='directory-container'>
-      {categories.map((category) => (
-        <CategoryItem key={category.id} category={category} />
+    <DirectoryContianer>
+      {categories.map(category => (
+        <DirectoryItem key={category.id} category={category} />
       ))}
-    </div>
-  );
-};
-
+    </DirectoryContianer>
+  )
+}

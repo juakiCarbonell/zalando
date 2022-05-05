@@ -1,5 +1,5 @@
 import { UserCredential } from 'firebase/auth'
-import { Product, CartProduct } from 'models/Models'
+import { Product, CartProduct, Categories } from 'models/Models'
 
 // Comom Props
 export interface Props {
@@ -11,8 +11,8 @@ export interface UserContextValues {
   currentUser: UserCredential | null
   setCurrentUser: React.Dispatch<React.SetStateAction<UserCredential | null>>
 }
-export interface ProductContextValues {
-  products: Product[]
+export interface CategoriesContextValues {
+  categories: Categories | EmptyObject
 }
 export interface CartContextValues {
   isCartOpen: boolean
@@ -24,3 +24,9 @@ export interface CartContextValues {
   cartCount: number
   total: number
 }
+
+export type EmptyObject = {
+  [key: string]: never;
+}
+ 
+

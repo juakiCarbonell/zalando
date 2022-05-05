@@ -14,3 +14,7 @@ export interface Product {
 export interface CartProduct extends Product {
   quantity: number
 }
+
+export interface Categories {
+  [key: string]: Product[]
+}

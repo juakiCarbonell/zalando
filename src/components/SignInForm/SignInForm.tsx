@@ -5,7 +5,7 @@ import {
 } from '../../utils/firebase/firebase'
 import { FirebaseError } from '@firebase/util'
 import { FormInput } from 'components/FormInput'
-import { Button } from 'components/Button'
+import { Button, ButtonTypes } from 'components/Button'
 import './SignInForm.scss'
 
 interface Values {
@@ -74,7 +74,7 @@ export const SignInForm = () => {
                 <Button type="submit">Sign In</Button>
                 <Button
                   type="button"
-                  buttonType="google"
+                  buttonType={ButtonTypes.google}
                   // onClickHandler={() => signInWithGoogle()}
                   onClickHandler={signInWithGoogle}
                 >
