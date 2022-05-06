@@ -1,5 +1,4 @@
-import { Field } from 'formik'
-import './FormInput.scss'
+import { FormInputLabel, Input, Group } from './FormInput.styles'
 
 interface Props {
   label: string
@@ -8,18 +7,21 @@ interface Props {
   type?: string
 }
 
-export const FormInput = ({ label, name, value, type = "text" }: Props) => {
+export const FormInput = ({ label, name, value, type = 'text' }: Props) => {
   return (
-    <div className="group">
-      <Field className="form-input" id={name} name={name} required type={type} />
+    <Group>
+      <Input
+        className="form-input"
+        id={name}
+        name={name}
+        required
+        type={type}
+      />
       {label && (
-        <label
-          className={`${value.length ? 'shrink' : ''} form-input-label`}
-          htmlFor={name}
-        >
+        <FormInputLabel shrink={value.length > 0} htmlFor={name}>
           {label}
-        </label>
+        </FormInputLabel>
       )}
-    </div>
+    </Group>
   )
 }

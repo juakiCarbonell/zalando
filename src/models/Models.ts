@@ -3,6 +3,9 @@ export interface Category {
   title: string
   imageUrl: string
 }
+export interface CategoryConfig extends Category {
+  route: string
+}
 
 export interface Product {
   id: number

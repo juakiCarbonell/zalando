@@ -1,4 +1,9 @@
-import './CartItem.scss'
+import {
+  CartItemContainer,
+  ImageContainer,
+  ItemDetails,
+  Name,
+} from './CartItem.styles'
 import { CartProduct } from 'models/Models'
 
 interface Props {
@@ -8,14 +13,14 @@ interface Props {
 export const CartItem = ({ cartItem }: Props) => {
   const { name, quantity, price, imageUrl } = cartItem
   return (
-    <div className="cart-item-container">
-      <img src={imageUrl} alt={name} />
-      <div className="item-details">
-        <span className="name">{name}</span>
+    <CartItemContainer>
+      <ImageContainer src={imageUrl} alt={name} />
+      <ItemDetails>
+        <Name>{name}</Name>
         <span className="price">
           {quantity} x {price}€
         </span>
-      </div>
-    </div>
+      </ItemDetails>
+    </CartItemContainer>
   )
 }
