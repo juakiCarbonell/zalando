@@ -6,7 +6,7 @@ import {
 import { FirebaseError } from '@firebase/util'
 import { FormInput } from 'components/FormInput'
 import { Button, ButtonTypes } from 'components/Button'
-import './SignInForm.scss'
+import { SignInContainer, ButtonsContainer } from  './SignInForm.styles'
 
 interface Values {
   email: string
@@ -48,7 +48,7 @@ export const SignInForm = () => {
   }
 
   return (
-    <div className="sign-up-container">
+    <SignInContainer>
       <h2>Already have an account</h2>
       <span>Sign in with your email and password</span>
       <Formik<Values>
@@ -70,20 +70,20 @@ export const SignInForm = () => {
                 type="password"
                 value={values.password}
               />
-              <div className="buttons-container">
+              <ButtonsContainer>
                 <Button type="submit">Sign In</Button>
                 <Button
                   type="button"
                   buttonType={ButtonTypes.google}
-                  onClickHandler={signInWithGoogle}
+                  onClick={signInWithGoogle}
                 >
                   Google Sign In
                 </Button>
-              </div>
+              </ButtonsContainer>
             </Form>
           )
         }}
       </Formik>
-    </div>
+    </SignInContainer>
   )
 }

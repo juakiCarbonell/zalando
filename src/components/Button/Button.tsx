@@ -6,15 +6,11 @@ export enum ButtonTypes {
   inverted = 'inverted',
 }
 
-type ButtonType =  'base' | 'google' | 'inverted'
+type Props = {
+  buttonType?: ButtonTypes
+} & React.ButtonHTMLAttributes<HTMLButtonElement>
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode
-  buttonType?: ButtonType
-  onClickHandler?: () => void
-}
-
-const getButton = (buttonType: string) =>
+const getButton = (buttonType = ButtonTypes.base): typeof BaseButton =>
   ({
     [ButtonTypes.base]: BaseButton,
     [ButtonTypes.google]: GoogleSignInButton,
@@ -24,16 +20,11 @@ const getButton = (buttonType: string) =>
 export const Button = ({
   children,
   buttonType = ButtonTypes.base,
-  type,
-  onClickHandler,
+  ...otherProps
 }: Props) => {
   const CustomButton = getButton(buttonType)
   if (!CustomButton) {
     return null
   }
-  return (
-    <CustomButton type={type} onClick={onClickHandler}>
-      {children}
-    </CustomButton>
-  )
+  return <CustomButton {...otherProps}>{children}</CustomButton>
 }

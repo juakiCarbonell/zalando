@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components'
 import { Field } from 'formik'
 
-interface FormInputLabelProps {
-  shrink: boolean
+type FormInputLabelProps = {
+  shrink?: boolean
 }
 
 const subColor = 'grey'

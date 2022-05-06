@@ -3,7 +3,7 @@ import {
   createAuthUserwithEmailAndPassword,
   createUseDocumentFormAuth,
 } from '../../utils/firebase/firebase'
-import { FirebaseError } from '@firebase/util'
+import { AuthError, AuthErrorCodes } from '@firebase/auth'
 import { FormInput } from 'components/FormInput'
 import { Button } from 'components/Button'
 import { SignUpContianer } from './SignUpForm.styles'
@@ -34,10 +34,7 @@ export const SignUpForm = () => {
         actions.resetForm()
       }
     } catch (error) {
-      if (
-        error instanceof FirebaseError &&
-        error.code === 'auth/email-already-in-use'
-      ) {
+      if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
         alert('Cannot create user, email already in use')
       } else {
         console.log('error', error)

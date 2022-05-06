@@ -21,3 +21,6 @@ export interface CartProduct extends Product {
 export interface Categories {
   [key: string]: Product[]
 }
+
+
+

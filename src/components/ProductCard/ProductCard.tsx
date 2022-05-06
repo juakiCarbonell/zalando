@@ -1,8 +1,9 @@
 import './ProductCard.scss'
-import { Button } from 'components/Button'
+import { Button, ButtonTypes } from 'components/Button'
 import { Product } from 'models/Models'
 import { useContext } from 'react'
 import { CartContext } from 'contexts/cartContext'
+
 
 interface Props {
   product: Product
@@ -22,9 +23,9 @@ export const ProductCard = ({ product }: Props) => {
         <span className="price">{price}</span>
       </div>
       <Button
-        buttonType="inverted"
+        buttonType={ButtonTypes.inverted}
         type="button"
-        onClickHandler={onClickHandler}
+        onClick={onClickHandler}
       >
         Add to card
       </Button>

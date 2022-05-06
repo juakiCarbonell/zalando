@@ -1,24 +1,22 @@
 import { FormInputLabel, Input, Group } from './FormInput.styles'
 
-interface Props {
+type Props = {
   label: string
-  name: string
-  value: string
-  type?: string
-}
+} & React.InputHTMLAttributes<HTMLInputElement>
 
-export const FormInput = ({ label, name, value, type = 'text' }: Props) => {
+export const FormInput = ({ label, ...inputProps }: Props) => {
   return (
     <Group>
-      <Input
-        className="form-input"
-        id={name}
-        name={name}
-        required
-        type={type}
-      />
+      <Input {...inputProps} />
       {label && (
-        <FormInputLabel shrink={value.length > 0} htmlFor={name}>
+        <FormInputLabel
+          shrink={Boolean(
+            inputProps.value &&
+              typeof inputProps.value === 'string' &&
+              inputProps.value.length,
+          )}
+          htmlFor={label}
+        >
           {label}
         </FormInputLabel>
       )}
