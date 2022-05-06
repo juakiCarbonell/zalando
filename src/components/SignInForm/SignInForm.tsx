@@ -75,7 +75,6 @@ export const SignInForm = () => {
                 <Button
                   type="button"
                   buttonType={ButtonTypes.google}
-                  // onClickHandler={() => signInWithGoogle()}
                   onClickHandler={signInWithGoogle}
                 >
                   Google Sign In
