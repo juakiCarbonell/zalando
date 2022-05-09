@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom'
-import { useContext } from 'react'
 import { ReactComponent as Zalando } from 'assets/crown.svg'
-import { UserContext } from 'contexts/userContext'
-import { CartContext } from 'contexts/cartContext'
-import { signOutUser } from '../../utils/firebase/firebase'
+import { signOutUser } from 'utils/firebase/firebase'
 import { CartIcon } from 'components/CartIcon'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from 'store/user/user.selector'
+import { selectIsCartOpen } from 'store/cart/cart.selector'
 
 import {
   NavigationContainer,
@@ -15,8 +15,9 @@ import {
 import { CartDropdown } from 'components/CartDropdown'
 
 export const Navigation = () => {
-  const { currentUser } = useContext(UserContext)
-  const { isCartOpen } = useContext(CartContext)
+  const currentUser = useSelector(selectCurrentUser)
+  const isCartOpen = useSelector(selectIsCartOpen)
+
   return (
     <>
       <NavigationContainer>
